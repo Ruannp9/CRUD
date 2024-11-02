@@ -12,7 +12,7 @@ from django.contrib import messages
 class SignUp(View):
     def get(self, request):
         form = UserCreationForm()
-        return render(request, 'registration/registes.html', {'form': form})
+        return render(request, 'registro/registes.html', {'form': form})
     def post(self, request):
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -23,7 +23,7 @@ class SignUp(View):
         
         if password1 != password2:
             messages.error(request, 'As senhas não coincidem.')
-            return render(request,'registration/registes.html', {'form': form})
+            return render(request,'registro/registes.html', {'form': form})
         if form.is_valid():
             user = form.save(commit=False)
             user.username = username
@@ -38,23 +38,23 @@ class SignUp(View):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
-        return render(request, 'registration/registes.html', {'form': form})
+        return render(request, 'registro/registes.html', {'form': form})
     
-    def login_view(request):
-        if request.method == 'POST':
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            
-            if user is not None:
-                login(request, user)
-                return redirect('/')
-            else:
-                messages.error(request, 'Usuário ou senha incorretos.')
-                return render(request, 'registration,login.html')
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.error(request, 'Usuário ou senha incorretos.')
+            return render(request, 'registro/login.html')
 
-        return render(request, 'registration/login.html')
-    def logout_view(request):
-        logout(request)
-        return redirect('login')
+    return render(request, 'registro/login.html')
+def logout_view(request):
+    logout(request)
+    return redirect('login')
                     
