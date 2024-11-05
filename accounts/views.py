@@ -12,7 +12,7 @@ from django.contrib import messages
 class SignUp(View):
     def get(self, request):
         form = UserCreationForm()
-        return render(request, 'registro/registes.html', {'form': form})
+        return render(request, 'registro/register.html', {'form': form})
     def post(self, request):
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -23,7 +23,7 @@ class SignUp(View):
         
         if password1 != password2:
             messages.error(request, 'As senhas não coincidem.')
-            return render(request,'registro/registes.html', {'form': form})
+            return render(request,'registro/register.html', {'form': form})
         if form.is_valid():
             user = form.save(commit=False)
             user.username = username
@@ -38,7 +38,7 @@ class SignUp(View):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
-        return render(request, 'registro/registes.html', {'form': form})
+        return render(request, 'registro/register.html', {'form': form})
     
 def login_view(request):
     if request.method == 'POST':

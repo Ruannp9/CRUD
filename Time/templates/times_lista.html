@@ -3,4 +3,9 @@
     {% for time in times %}
         <li>{{ time.nome_time }} - {{ time.tecnico_time }} - {{ time.data_criacao}} - {{ time.Mascote }} - {{time.quantidade_titulos}}
 
+    {% endfor%}
+<br>
+<br>
+<br>
+<a href="{% url 'logout' %}">Deslogar</a>
             

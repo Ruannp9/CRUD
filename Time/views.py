@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 @login_required
 def time_list(request):
     times = Time_Futebol.objects.all()
-    return render(request, 'times/times_lista.html', {'times': times})
+    return render(request, 'times_lista.html', {'times': times})
 
 @login_required
 def time_add(request):
